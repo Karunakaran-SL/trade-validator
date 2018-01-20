@@ -3,29 +3,30 @@ package com.coding.trade.controller;
 import com.coding.trade.exception.TradeValidationException;
 import com.coding.trade.model.Trade;
 import com.coding.trade.service.TradeValidatorService;
+import com.coding.trade.validator.TradeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
-@RestController("/api/trade/validator/")
+@RestController
 public class TradeValidationController {
 
     @Autowired
     private TradeValidatorService tradeValidatorService;
 
-
     @PostMapping("valid")
-    public String validate(@Valid @RequestBody Trade trade) throws TradeValidationException{
-        return tradeValidatorService.validate(trade);
+    public List<String> validate(@Valid @RequestBody Trade trade, BindingResult bindingResult){
+        try {
+            return tradeValidatorService.validate(trade,bindingResult);
+        } catch (TradeValidationException e) {
+            return Arrays.asList(e.getMessage());
+        }
     }
-
-    @ExceptionHandler({ TradeValidationException.class })
-    public void handleException(TradeValidationException e) {
-        System.out.println("TODO Move to log"+e.getMessage());
-    }
-
 }

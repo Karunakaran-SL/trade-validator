@@ -1,15 +1,18 @@
 package com.coding.trade;
 
 import com.coding.trade.controller.TradeValidationController;
+import com.coding.trade.exception.TradeValidationException;
 import com.coding.trade.model.Trade;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.validation.BindingResult;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +27,9 @@ import static org.junit.Assert.assertNotNull;
 public class TradeValidatorServiceApplicationTests {
 
 	private static List<Trade> testData;
+
+	@Mock
+	BindingResult bindingResult;
 
 	@BeforeClass
 	public static void setUp(){
@@ -41,14 +47,15 @@ public class TradeValidatorServiceApplicationTests {
 	@Autowired
 	TradeValidationController tradeValidationController;
 
-	@Test
+	//@Test
 	public void testControllerInjected(){
 		assertNotNull(tradeValidationController);
 	}
 
 	@Test
-	public void testValidate(){
-
+	public void testValidateFirstSetOfData() throws TradeValidationException{
+		List<String> value = tradeValidationController.validate(testData.get(0),bindingResult);
+		System.out.println(value);
 	}
 
 }
