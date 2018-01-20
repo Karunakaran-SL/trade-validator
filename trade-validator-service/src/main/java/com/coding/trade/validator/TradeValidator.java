@@ -15,6 +15,8 @@ public class TradeValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
+        Trade trade = (Trade) obj;
+        trade.getType().getValidator().validate(trade,errors);
         System.out.println("Hello");
     }
 }

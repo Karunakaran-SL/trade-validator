@@ -23,7 +23,7 @@ public class TradeValidatorServiceImpl implements TradeValidatorService{
         List<String> errors = new ArrayList<>();
         if(bindingResult.hasErrors()){
             bindingResult.getAllErrors().stream().forEach(error -> {
-                errors.add(error.getDefaultMessage());
+                errors.add(error.getCode());
             });
         }else{
             errors.add("Valid Trade Entry");

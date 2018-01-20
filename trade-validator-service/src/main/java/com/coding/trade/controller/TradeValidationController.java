@@ -21,7 +21,7 @@ public class TradeValidationController {
     @Autowired
     private TradeValidatorService tradeValidatorService;
 
-    @PostMapping("valid")
+    @PostMapping("/api/trade/valid")
     public List<String> validate(@Valid @RequestBody Trade trade, BindingResult bindingResult){
         try {
             return tradeValidatorService.validate(trade,bindingResult);
