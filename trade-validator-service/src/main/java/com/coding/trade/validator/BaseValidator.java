@@ -2,9 +2,12 @@ package com.coding.trade.validator;
 
 import com.coding.trade.model.Trade;
 import com.coding.trade.service.HolidayService;
+import com.coding.trade.service.TradeInfoService;
 import com.coding.trade.service.impl.HolidayServiceImpl;
 import com.coding.trade.type.CcyPair;
+import com.coding.trade.type.TradeType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -12,16 +15,18 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Currency;
 
-public abstract class BaseValidator implements Validator{
+@Component
+public class BaseValidator implements Validator{
 
-    //TODO calling this is faling
-    private HolidayService holidayService = new HolidayServiceImpl();
+    @Autowired
+    private HolidayService holidayService;
+
+    @Autowired
+    private TradeInfoService tradeInfoService;
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    //TODO Assumption is for Europe. Based on currenty this value needs to change.
-    private DayOfWeek[] weekEnd = new DayOfWeek[]{DayOfWeek.SATURDAY,DayOfWeek.SUNDAY};
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -31,13 +36,34 @@ public abstract class BaseValidator implements Validator{
     @Override
     public void validate(Object obj, Errors errors) {
         Trade trade = (Trade) obj;
-        LocalDate valueDate = LocalDate.from(dateTimeFormatter.parse(trade.getValueDate()));
-        LocalDate tradeDate = LocalDate.from(dateTimeFormatter.parse(trade.getTradeDate()));
+        if(trade.getType() != TradeType.VanillaOption) {
+            LocalDate valueDate = LocalDate.from(dateTimeFormatter.parse(trade.getValueDate()));
+            LocalDate tradeDate = LocalDate.from(dateTimeFormatter.parse(trade.getTradeDate()));
+            //Rule 1: value date cannot be before trade date
+            checkRuleValueDateBeforeTradeDate(valueDate, tradeDate, errors);
+            //Rule 2: value date cannot fall on weekend or non-working day for currency
+            checkRuleValueDateShouldBeOnWorkingDay(valueDate, trade.getCcyPair(), errors);
+        }
+        //Rule2: if the counterparty is one of the supported ones
+        checkValidCounterParts(trade,errors);
+        //Rule 4: validate currencies if they are valid ISO codes (ISO 4217)
+        validateCurrency(trade,errors);
 
-        //Rule 1: value date cannot be before trade date
-        checkRuleValueDateBeforeTradeDate(valueDate,tradeDate, errors);
-        //Rule 2: value date cannot fall on weekend or non-working day for currency
-        checkRuleValueDateShouldBeOnWorkingDay(valueDate,trade.getCcyPair(),errors);
+    }
+
+    private void validateCurrency(Trade trade, Errors errors) {
+        try {
+            Currency.getInstance(trade.getCcyPair().name().substring(0, 3));
+            Currency.getInstance(trade.getCcyPair().name().substring(3));
+        } catch (IllegalArgumentException e) {
+            errors.rejectValue("ccyPair", "In valid currencies codes");
+        }
+    }
+
+    private void checkValidCounterParts(Trade trade, Errors errors) {
+        if(!tradeInfoService.isValidCounterPart(trade.getCustomer())){
+            errors.rejectValue("customer", "Unsupported counterparties");
+        }
     }
 
     private void checkRuleValueDateShouldBeOnWorkingDay(LocalDate valueDate, CcyPair ccyPair, Errors errors) {
@@ -54,7 +80,7 @@ public abstract class BaseValidator implements Validator{
     }
 
     private boolean isWeekEnd(LocalDate valueDate,CcyPair ccyPair) {
-        return Arrays.asList(weekEnd).contains(valueDate.getDayOfWeek());
+        return holidayService.isWeekEnd(ccyPair,valueDate);
     }
 
     private void checkRuleValueDateBeforeTradeDate(LocalDate valueDate, LocalDate tradeDate, Errors errors){
