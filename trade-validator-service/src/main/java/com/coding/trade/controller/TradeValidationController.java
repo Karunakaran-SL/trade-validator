@@ -2,6 +2,7 @@ package com.coding.trade.controller;
 
 import com.coding.trade.exception.TradeValidationException;
 import com.coding.trade.model.Trade;
+import com.coding.trade.model.ValidationResult;
 import com.coding.trade.service.TradeValidatorService;
 import com.coding.trade.validator.TradeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -27,6 +29,15 @@ public class TradeValidationController {
             return tradeValidatorService.validate(trade,bindingResult);
         } catch (TradeValidationException e) {
             return Arrays.asList(e.getMessage());
+        }
+    }
+
+    @PostMapping("/api/trade/bulk-valid")
+    public List<ValidationResult> validate(@Valid @RequestBody List<Trade> trades){
+        try {
+            return tradeValidatorService.validate(trades);
+        } catch (TradeValidationException e) {
+            return Collections.emptyList();
         }
     }
 }

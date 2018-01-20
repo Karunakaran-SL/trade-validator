@@ -48,7 +48,14 @@ public class BaseValidator implements Validator{
         checkValidCounterParts(trade,errors);
         //Rule 4: validate currencies if they are valid ISO codes (ISO 4217)
         validateCurrency(trade,errors);
+        //Rule 5: Legal Entity
+        validateLegalEntity(trade,errors);
+    }
 
+    private void validateLegalEntity(Trade trade, Errors errors) {
+        if(!tradeInfoService.isValidLegalEntity(trade.getLegalEntity())){
+            errors.rejectValue("legalEntity", "Invalid legal entity");
+        }
     }
 
     private void validateCurrency(Trade trade, Errors errors) {
@@ -56,7 +63,7 @@ public class BaseValidator implements Validator{
             Currency.getInstance(trade.getCcyPair().name().substring(0, 3));
             Currency.getInstance(trade.getCcyPair().name().substring(3));
         } catch (IllegalArgumentException e) {
-            errors.rejectValue("ccyPair", "In valid currencies codes");
+            errors.rejectValue("ccyPair", "Invalid currencies codes");
         }
     }
 

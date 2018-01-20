@@ -242,6 +242,18 @@ public class TradeValidatorControllerTestTDD {
 
 	}
 
+	@Test
+	public void testValidateInvalidLegalEntity() throws Exception {
+
+		MvcResult result = mockMvc.perform(
+				post("/api/trade/valid").contentType(
+						MediaType.APPLICATION_JSON).content(getAsJson(testData.get(16)))).andExpect(
+				status().isOk()).andReturn();
+
+		String content = result.getResponse().getContentAsString();
+		assertEquals("[\"Invalid legal entity\"]",content);
+	}
+
 	private String getAsJson(Trade trade) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
