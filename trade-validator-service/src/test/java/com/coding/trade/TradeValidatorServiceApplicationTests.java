@@ -1,4 +1,4 @@
-package com.coding.trade.Trade.Validator.Service;
+package com.coding.trade;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

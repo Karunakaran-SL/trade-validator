@@ -1,4 +1,4 @@
-package com.coding.trade.Trade.Validator.Service;
+package com.coding.trade;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
