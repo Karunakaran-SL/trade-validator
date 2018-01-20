@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.coding.trade</groupId>
-	<artifactId>Trade Validator Service</artifactId>
+	<artifactId>trade-validator-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Trade Validator Service</name>
+	<name>trade-validator-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
