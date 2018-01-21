@@ -1,7 +1,6 @@
 package com.coding.trade.controller;
 
 import com.coding.trade.exception.ShutdownInProgressException;
-import com.coding.trade.exception.TradeValidationException;
 import com.coding.trade.model.Trade;
 import com.coding.trade.model.ValidationResult;
 import com.coding.trade.service.ShutdownService;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,11 +26,7 @@ public class TradeValidationController {
     @PostMapping("/api/trade/valid")
     public List<String> validate(@Valid @RequestBody Trade trade, BindingResult bindingResult){
         if(shutdownService.canAcceptRequest()) {
-            try {
-                return tradeValidatorService.validate(trade, bindingResult);
-            } catch (TradeValidationException e) {
-                return Arrays.asList(e.getMessage());
-            }
+            return tradeValidatorService.validate(trade, bindingResult);
         }
         throw new ShutdownInProgressException();
     }
@@ -41,17 +34,8 @@ public class TradeValidationController {
     @PostMapping("/api/trade/bulk-valid")
     public List<ValidationResult> validate(@Valid @RequestBody List<Trade> trades){
         if(shutdownService.canAcceptRequest()) {
-            try {
-                return tradeValidatorService.validate(trades);
-            } catch (TradeValidationException e) {
-                return Collections.emptyList();
-            }
+            return tradeValidatorService.validate(trades);
         }
         throw new ShutdownInProgressException();
     }
-
-    /*@ExceptionHandler({ShutdownInProgressException.class})
-    public void handleException() {
-
-    }*/
 }

@@ -15,6 +15,8 @@ import java.util.Currency;
 @Component
 public class BaseValidator extends AbstractValidator{
 
+    private static final String VALUE_DATE = "valueDate";
+
     @Autowired
     private HolidayService holidayService;
 
@@ -58,7 +60,7 @@ public class BaseValidator extends AbstractValidator{
             errors.rejectValue("tradeDate","Invalid Trade date format");
         }
         if(checkDateFormat(trade.getValueDate())){
-            errors.rejectValue("valueDate","Invalid valueDate format");
+            errors.rejectValue(VALUE_DATE,"Invalid valueDate format");
         }
         if(checkDateFormat(trade.getExpiryDate())){
             errors.rejectValue("expiryDate","Invalid expiryDate format");
@@ -117,10 +119,10 @@ public class BaseValidator extends AbstractValidator{
 
     private void checkRuleValueDateShouldBeOnWorkingDay(LocalDate valueDate, CcyPair ccyPair, Errors errors) {
         if(isWeekEnd(valueDate,ccyPair)){
-            errors.rejectValue("valueDate", "Value date cannot fall on weekend");
+            errors.rejectValue(VALUE_DATE, "Value date cannot fall on weekend");
         }
         if(isHoliday(valueDate,ccyPair)){
-            errors.rejectValue("valueDate", "Value date cannot fall on non-working day for currency");
+            errors.rejectValue(VALUE_DATE, "Value date cannot fall on non-working day for currency");
         }
     }
 
@@ -134,7 +136,7 @@ public class BaseValidator extends AbstractValidator{
 
     private void checkRuleValueDateBeforeTradeDate(LocalDate valueDate, LocalDate tradeDate, Errors errors){
         if(valueDate.isBefore(tradeDate)){
-            errors.rejectValue("valueDate", "Value date cannot be before trade date");
+            errors.rejectValue(VALUE_DATE, "Value date cannot be before trade date");
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.coding.trade;
 
-import com.coding.trade.controller.TradeValidationController;
 import com.coding.trade.model.Trade;
 import com.coding.trade.model.ValidationResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TradeValidatorBulkControllerTestTDD {
+public class TradeValidatorBulkControllerTDDTest {
 
 	private static String testData;
 
@@ -42,7 +40,7 @@ public class TradeValidatorBulkControllerTestTDD {
 	@BeforeClass
 	public static void setUp(){
 		try {
-			byte[] encoded = Files.readAllBytes(Paths.get(TradeValidatorBulkControllerTestTDD.class.getResource("/testDataActual.json").getFile()));
+			byte[] encoded = Files.readAllBytes(Paths.get(TradeValidatorBulkControllerTDDTest.class.getResource("/testDataActual.json").getFile()));
 			testData = new String(encoded, StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();

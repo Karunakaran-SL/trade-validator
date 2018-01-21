@@ -1,6 +1,5 @@
 package com.coding.trade.service.impl;
 
-import com.coding.trade.exception.TradeValidationException;
 import com.coding.trade.model.Trade;
 import com.coding.trade.model.ValidationResult;
 import com.coding.trade.service.StatsService;
@@ -39,15 +38,14 @@ public class TradeValidatorServiceImpl implements TradeValidatorService{
     private TradeValidator tradeValidator;
 
     @Override
-    public List<String> validate(Trade trade, BindingResult bindingResult) throws TradeValidationException {
+    public List<String> validate(Trade trade, BindingResult bindingResult)  {
         long startTime = System.currentTimeMillis();
         statsService.increamentRequestCount();
         tradeValidator.validate(trade,bindingResult);
         List<String> errors = new ArrayList<>();
         if(bindingResult.hasErrors()){
-            bindingResult.getAllErrors().stream().forEach(error -> {
-                errors.add(error.getCode());
-            });
+            bindingResult.getAllErrors().stream().forEach(error ->
+                errors.add(error.getCode()));
         }else{
             errors.add("Valid Trade Entry");
         }
@@ -57,7 +55,7 @@ public class TradeValidatorServiceImpl implements TradeValidatorService{
     }
 
     @Override
-    public List<ValidationResult> validate(List<Trade> trades) throws TradeValidationException {
+    public List<ValidationResult> validate(List<Trade> trades) {
         long startTime = System.currentTimeMillis();
         statsService.increamentRequestCount();
         List<ValidationResult> validationResults = new ArrayList<>();
@@ -69,9 +67,9 @@ public class TradeValidatorServiceImpl implements TradeValidatorService{
             if(errors.hasErrors()){
                 validationResult.setValid(false);
                 List<String> err = new ArrayList<>();
-                errors.getAllErrors().stream().forEach(error -> {
-                    err.add(error.getCode());
-                });
+                errors.getAllErrors().stream().forEach(error ->
+                    err.add(error.getCode())
+                );
                 validationResult.setErrors(err);
             }else{
                 validationResult.setValid(true);
@@ -86,9 +84,6 @@ public class TradeValidatorServiceImpl implements TradeValidatorService{
     @Override
     public Validator getValidator(TradeType tradeType) {
         Validator validator = baseValidator;
-        if(tradeType == TradeType.ALL){
-            validator = baseValidator;
-        }
         if(tradeType == TradeType.Spot){
             validator = spotValidator;
         }

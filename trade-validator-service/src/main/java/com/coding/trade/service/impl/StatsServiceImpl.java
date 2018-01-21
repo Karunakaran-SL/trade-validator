@@ -19,7 +19,7 @@ public class StatsServiceImpl implements StatsService{
     @Autowired
     CounterService counterService;
 
-    private final int MAX_STATS_ALLOWED_PER_FIELD = 100;
+    private static final int MAX_STATS_ALLOWED_PER_FIELD = 100;
 
     private Map<RequestType,Deque<Long>> statsMap = new ConcurrentHashMap<>(2);
 

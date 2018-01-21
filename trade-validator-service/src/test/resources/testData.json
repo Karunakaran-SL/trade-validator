@@ -13,17 +13,17 @@
     "trader": "Johann Baumfiddler"
   },
   {
-  "customer": "PLUTO1",
-  "ccyPair": "EURUSD",
-  "type": "Spot",
-  "direction": "BUY",
-  "tradeDate": "2016-08-11",
-  "amount1": 1000000.00,
-  "amount2": 1120000.00,
-  "rate": 1.12,
-  "valueDate": "2016-08-13",
-  "legalEntity": "CS Zurich",
-  "trader": "Johann Baumfiddler"
+    "customer": "PLUTO1",
+    "ccyPair": "EURUSD",
+    "type": "Spot",
+    "direction": "BUY",
+    "tradeDate": "2016-08-11",
+    "amount1": 1000000.00,
+    "amount2": 1120000.00,
+    "rate": 1.12,
+    "valueDate": "2016-08-13",
+    "legalEntity": "CS Zurich",
+    "trader": "Johann Baumfiddler"
   },
   {
     "customer": "PLUTO1",
@@ -292,6 +292,28 @@
     "premiumType": "%USD",
     "premiumDate": "2016-08-25",
     "legalEntity": "CS dadsvs Zurich",
+    "trader": "Johann Baumfiddler"
+  },
+  {
+    "customer": "PLUTO1",
+    "ccyPair": "EURUSD",
+    "type": "VanillaOption",
+    "style": "AMERICAN",
+    "direction": "SELL",
+    "strategy": "CALL",
+    "tradeDate": "2016dasf-08-11",
+    "amount1": 1000000.00,
+    "amount2": 1120000.00,
+    "rate": 1.12,
+    "deliveryDate": "201sada6-08-22",
+    "expiryDate": "20adaa16-08-19",
+    "excerciseStartDate": "201adafd6-08-10",
+    "payCcy": "USdsaf",
+    "premium": 0.20,
+    "premiumCcy": "USasda",
+    "premiumType": "%USD",
+    "premiumDate": "2016---08-12",
+    "legalEntity": "CS Zurich",
     "trader": "Johann Baumfiddler"
   }
 ]

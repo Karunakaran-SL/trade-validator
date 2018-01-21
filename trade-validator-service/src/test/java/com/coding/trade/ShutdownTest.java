@@ -9,13 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,7 +36,7 @@ public class ShutdownTest {
     public static void setUp(){
         try {
             ObjectMapper mapper = new ObjectMapper();
-            File jsonInput = new File(TradeValidatorControllerTestTDD.class.getResource("/testData.json").getFile());
+            File jsonInput = new File(TradeValidatorControllerTDDTest.class.getResource("/testData.json").getFile());
             testData = mapper.readValue(jsonInput,
                     mapper.getTypeFactory().constructCollectionType(List.class, Trade.class));
         } catch (IOException e) {

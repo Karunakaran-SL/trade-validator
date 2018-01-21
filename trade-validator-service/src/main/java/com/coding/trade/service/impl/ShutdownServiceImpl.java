@@ -43,7 +43,9 @@ public class ShutdownServiceImpl implements ShutdownService{
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            LOGGER.error("Error while running in Shutdown sleep");
+            LOGGER.error("Error while running in Shutdown sleep"+e.getMessage());
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -11,10 +11,10 @@ import java.util.Arrays;
 @Service
 public class HolidayServiceImpl implements HolidayService{
 
-    //TODO static map with currency and map date
+    //static map with currency and map date
     private LocalDate[] holidayList = new LocalDate[]{LocalDate.parse("2016-08-18")};
 
-    //TODO Assumption is for Europe. Based on currenty this value needs to change.
+    //Assumption is for Europe. Based on currenty this value needs to change.
     private DayOfWeek[] weekEnd = new DayOfWeek[]{DayOfWeek.SATURDAY,DayOfWeek.SUNDAY};
 
     @Override
