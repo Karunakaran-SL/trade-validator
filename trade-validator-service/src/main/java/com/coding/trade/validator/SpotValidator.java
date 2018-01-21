@@ -3,10 +3,8 @@ package com.coding.trade.validator;
 import com.coding.trade.model.Trade;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 

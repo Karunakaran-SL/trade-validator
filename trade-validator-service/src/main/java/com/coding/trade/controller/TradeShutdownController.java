@@ -1,7 +1,6 @@
 package com.coding.trade.controller;
 
 import com.coding.trade.service.ShutdownService;
-import com.coding.trade.service.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

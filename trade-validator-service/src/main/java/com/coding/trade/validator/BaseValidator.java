@@ -3,18 +3,13 @@ package com.coding.trade.validator;
 import com.coding.trade.model.Trade;
 import com.coding.trade.service.HolidayService;
 import com.coding.trade.service.TradeInfoService;
-import com.coding.trade.service.impl.HolidayServiceImpl;
 import com.coding.trade.type.CcyPair;
 import com.coding.trade.type.TradeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Currency;
 
 @Component

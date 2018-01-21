@@ -5,10 +5,8 @@ import com.coding.trade.type.Style;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class OptionValidator extends AbstractValidator {
