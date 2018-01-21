@@ -11,14 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class OptionValidator implements Validator {
-
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return Trade.class.equals(aClass);
-    }
+public class OptionValidator extends AbstractValidator {
 
     @Override
     public void validate(Object obj, Errors errors) {

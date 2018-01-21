@@ -9,5 +9,6 @@ import org.springframework.validation.Validator;
 public enum TradeType {
     Spot,
     Forward,
-    VanillaOption;
+    VanillaOption,
+    ALL;
 }

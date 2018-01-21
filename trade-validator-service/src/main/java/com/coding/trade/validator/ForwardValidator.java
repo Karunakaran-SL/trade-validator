@@ -11,14 +11,7 @@ import java.time.format.DateTimeFormatter;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Component
-public class ForwardValidator implements Validator {
-
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return Trade.class.equals(aClass);
-    }
+public class ForwardValidator extends AbstractValidator {
 
     @Override
     public void validate(Object obj, Errors errors) {

@@ -1,6 +1,7 @@
 package com.coding.trade.validator;
 
 import com.coding.trade.model.Trade;
+import com.coding.trade.service.TradeValidatorService;
 import com.coding.trade.type.TradeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,37 +9,17 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class TradeValidator implements Validator {
+public class TradeValidator extends AbstractValidator {
 
     @Autowired
-    SpotValidator spotValidator;
-
-    @Autowired
-    BaseValidator baseValidator;
-
-    @Autowired
-    ForwardValidator forwardValidator;
-
-    @Autowired
-    OptionValidator optionValidator;
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return Trade.class.equals(clazz);
-    }
+    TradeValidatorService tradeValidatorService;
 
     @Override
     public void validate(Object obj, Errors errors) {
         Trade trade = (Trade) obj;
-        baseValidator.validate(trade,errors);
+        tradeValidatorService.getValidator(TradeType.ALL).validate(trade,errors);
         if(!errors.hasErrors()){
-            if(trade.getType() == TradeType.Spot){
-                spotValidator.validate(trade,errors);
-            }else if(trade.getType() == TradeType.Forward){
-                forwardValidator.validate(trade,errors);
-            }else if(trade.getType() == TradeType.VanillaOption){
-                optionValidator.validate(trade,errors);
-            }
+            tradeValidatorService.getValidator(trade.getType()).validate(trade,errors);
         }
     }
 }
