@@ -1,0 +1,258 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+<form #studyPriorityForm="ngForm" >
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Please Fill the trade details to validate</h4>
+  </div>
+  <div >
+    <label for="customer"> Customer       : </label>
+    <input type="text" id="customer" name="customer"
+           class="form-control"
+           [(ngModel)]="trade.customer"
+           maxlength="100" required pattern="^[a-zA-Z0-9]+$"
+           placeholder="alphanumeric only" required
+           title="Input alphanumeric characters only"  #customer="ngModel"/>
+    <div *ngIf="studyPriorityForm.submitted && !customer.valid" >
+      <div [hidden]="!customer.errors.required">
+        <h5 style="color: red">Customer is mandatory.</h5>
+      </div>
+      <div [hidden]="customer.errors.required">
+        <h5 style="color: red">Invalid Format</h5>
+      </div>
+    </div>
+
+    <div >
+      <label class="font-normal"> CCY Pair       : </label>
+      <label class="font-normal">   EURUSD   </label>
+    </div>
+
+    <div >
+      <label for="type"> Type           : </label>
+      <select id="type" name="type"
+              class="form-control"
+              [(ngModel)]="trade.type" required #type="ngModel">
+        <option value="Spot">Spot</option>
+        <option value="Forward">Forward</option>
+        <option value="VanillaOption">VanillaOption</option>
+      </select>
+      <div *ngIf="studyPriorityForm.submitted && !type.valid" >
+        <div [hidden]="!type.errors.required">
+          <h5 style="color: red">Type is mandatory.</h5>
+        </div>
+      </div>
+    </div>
+
+    <div >
+      <label for="direction"> Direction           : </label>
+      <select id="direction" name="direction"
+              class="form-control"
+              required [(ngModel)]="trade.direction" #direction="ngModel">
+        <option value="BUY" selected>BUY</option>
+        <option value="SELL">SELL</option>
+      </select>
+    </div>
+
+    <div >
+      <label for="tradeDate"> Trade Date           : </label>
+      <input type="date" id="tradeDate" name="tradeDate"
+             class="form-control"
+             required [(ngModel)]="trade.tradeDate" #tradeDate="ngModel"/>
+      <div *ngIf="studyPriorityForm.submitted && !tradeDate.valid" >
+        <div [hidden]="!tradeDate.errors.required">
+          <h5 style="color: red">Trade Date is mandatory.</h5>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="amount1"> Amount 1             : </label>
+      <input type="float"
+             id="amount1" name="amount1" class="form-control"
+             pattern="[0-9]+(\.[0-9]{0,2})?%?"
+             required [(ngModel)]="trade.amount1"
+             placeholder="Format 10.00" title="Input of format 10.00"
+             #amount1="ngModel"/>
+      <div *ngIf="studyPriorityForm.submitted && !amount1.valid" >
+        <div [hidden]="!amount1.errors.required">
+          <h5 style="color: red">Amount 1 is mandatory.</h5>
+        </div>
+        <div [hidden]="amount1.errors.required">
+          <h5 style="color: red">Invalid Format</h5>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="amount2"> Amount 2             : </label>
+      <input type="float"
+             id="amount2" name="amount2" class="form-control"
+             pattern="[0-9]+(\.[0-9]{0,2})?%?"
+             required [(ngModel)]="trade.amount2"
+             placeholder="Format 10.00" title="Input of format 10.00"
+             #amount2="ngModel"/>
+      <div *ngIf="studyPriorityForm.submitted && !amount2.valid" >
+        <div [hidden]="!amount2.errors.required">
+          <h5 style="color: red">Amount 2 is mandatory.</h5>
+        </div>
+        <div [hidden]="amount2.errors.required">
+          <h5 style="color: red">Invalid Format</h5>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="rate"> Rate                 : </label>
+      <input type="float"
+             id="rate" name="rate" class="form-control"
+             pattern="[0-9]+(\.[0-9]{0,2})?%?"
+             required [(ngModel)]="trade.rate"
+             placeholder="Format 1.00" title="Input of format 1.00"
+             #rate="ngModel"/>
+      <div *ngIf="studyPriorityForm.submitted && !rate.valid" >
+        <div [hidden]="!rate.errors.required">
+          <h5 style="color: red">Rate is mandatory.</h5>
+        </div>
+        <div [hidden]="rate.errors.required">
+          <h5 style="color: red">Invalid Format</h5>
+        </div>
+      </div>
+    </div>
+
+    <div >
+      <label for="valueDate"> Value Date           : </label>
+      <input type="date" id="valueDate" name="valueDate"
+             class="form-control"
+             [(ngModel)]="trade.valueDate"
+             #valueDate="ngModel"/>
+    </div>
+
+    <div >
+      <label for="legal"> Legal Entity       : </label>
+      <input type="text" id="legal" name="legal"
+             class="form-control"
+             maxlength="100" required pattern="[a-zA-Z0-9\s]+"
+             required [(ngModel)]="trade.legalEntity"
+             placeholder="alphanumeric only"
+             title="Input alphanumeric characters only"  #legal="ngModel"/>
+      <div *ngIf="studyPriorityForm.submitted && !legal.valid" >
+        <div [hidden]="!legal.errors.required">
+          <h5 style="color: red">Legal Entity is mandatory.</h5>
+        </div>
+        <div [hidden]="legal.errors.required">
+          <h5 style="color: red">Invalid Format</h5>
+        </div>
+      </div>
+    </div>
+
+    <div >
+      <label for="trader"> Trader       : </label>
+      <input type="text" id="trader" name="trader"
+             class="form-control"
+             maxlength="100" required pattern="[a-zA-Z0-9\s]+"
+             required [(ngModel)]="trade.trader"
+             placeholder="alphanumeric only"
+             title="Input alphanumeric characters only" #trader="ngModel" />
+      <div *ngIf="studyPriorityForm.submitted && !trader.valid" >
+        <div [hidden]="!trader.errors.required">
+          <h5 style="color: red">Trader is mandatory.</h5>
+        </div>
+        <div [hidden]="trader.errors.required">
+          <h5 style="color: red">Invalid Format</h5>
+        </div>
+      </div>
+    </div>
+
+    <div >
+      <label for="style"> Style           : </label>
+      <select id="style" name="style"
+              class="form-control"
+              [(ngModel)]="trade.style" #style="ngModel">
+        <option value="EUROPEAN" selected>EUROPEAN</option>
+        <option value="AMERICAN">AMERICAN</option>
+      </select>
+    </div>
+
+    <div >
+      <label for="strategy"> Strategy           : </label>
+      <select id="strategy" name="strategy"
+              class="form-control"
+              [(ngModel)]="trade.strategy" #strategy="ngModel">
+        <option value="CALL" selected>CALL</option>
+      </select>
+    </div>
+
+    <div >
+      <label for="deliveryDate"> Delivery Date           : </label>
+      <input id="deliveryDate" name="deliveryDate"
+             class="form-control"
+             type="date" [(ngModel)]="trade.deliveryDate" #deliveryDate="ngModel"/>
+    </div>
+
+    <div >
+      <label for="expiryDate"> Expiry Date           : </label>
+      <input type="date" id="expiryDate" name="expiryDate"
+             class="form-control"
+             [(ngModel)]="trade.expiryDate" #expiryDate="ngModel"/>
+    </div>
+
+    <div >
+      <label for="excerciseStartDate"> Excercise Start Date           : </label>
+      <input type="date" id="excerciseStartDate" name="excerciseStartDate"
+             class="form-control"
+             [(ngModel)]="trade.excerciseStartDate" #excerciseStartDate="ngModel"/>
+    </div>
+
+    <div >
+      <label for="payCcy"> Pay Currency       : </label>
+      <input type="text" id="payCcy" name="payCcy"
+             class="form-control"
+             maxlength="5" pattern="^[a-zA-Z0-9]+$"
+             [(ngModel)]="trade.payCcy"
+             placeholder="alphanumeric only"
+             title="Input alphanumeric characters only"  #payCcy="ngModel"/>
+    </div>
+
+    <div>
+      <label for="premium"> Premium                 : </label>
+      <input type="float"
+             id="premium" name="premium" class="form-control"
+             [(ngModel)]="trade.premium"
+             pattern="[0-9]+(\.[0-9]{0,2})?%?"
+             placeholder="Format 0.20" title="Input of format 0.20" #premium="ngModel"/>
+    </div>
+
+    <div >
+      <label for="premiumCcy"> Preminum Currency       : </label>
+      <input type="text" id="premiumCcy" name="premiumCcy"
+             class="form-control"
+             [(ngModel)]="trade.premiumCcy"
+             maxlength="5" pattern="^[a-zA-Z0-9]+$"
+             placeholder="alphanumeric only"
+             title="Input alphanumeric characters only"  #premiumCcy="ngModel"/>
+    </div>
+
+    <div>
+      <label for="premiumDate"> Premium Date           : </label>
+      <input type="date" id="premiumDate" name="premiumDate"
+             class="form-control"
+             [(ngModel)]="trade.premiumDate" #premiumDate="ngModel"/>
+    </div>
+  </div>
+  <div class="form-control">
+    <button class="btn btn-default batch-button" id="submit"
+            type="submit"
+            (click)="(studyPriorityForm.form.valid)? validate():null">Validate</button>
+  </div>
+</form>
+
+<div style="text-align:center">
+  <h3>
+    Validation Result in JSON Format
+  </h3>
+  <h5 style="color: blue">{{result}}</h5>
+</div>
+
