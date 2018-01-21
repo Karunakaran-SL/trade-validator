@@ -266,6 +266,18 @@ public class TradeValidatorControllerTDDTest {
 		assertEquals("[\"Invalid Trade date format\",\"Invalid expiryDate format\",\"Invalid deliveryDate format\",\"Invalid premiumDate format\",\"Invalid excerciseStartDate format\",\"Invalid payCcy format\",\"Invalid premiumCcy format\"]",content);
 	}
 
+	@Test
+	public void testValidateInvalidValueDate() throws Exception {
+
+		MvcResult result = mockMvc.perform(
+				post("/api/trade/valid").contentType(
+						MediaType.APPLICATION_JSON).content(getAsJson(testData.get(18)))).andExpect(
+				status().isOk()).andReturn();
+
+		String content = result.getResponse().getContentAsString();
+		assertEquals("[\"Invalid valueDate format\"]",content);
+	}
+
 	private String getAsJson(Trade trade) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();

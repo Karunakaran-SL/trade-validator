@@ -26,24 +26,36 @@ public class BaseValidator extends AbstractValidator{
     @Override
     public void validate(Object obj, Errors errors) {
         Trade trade = (Trade) obj;
+        validateInputParams(trade,errors);
+        if(!errors.hasErrors()) {
+            validateRule1AndRule2(trade,errors);
+            validateRule3To5(trade,errors);
+        }
+    }
+
+    private void validateRule3To5(Trade trade, Errors errors) {
+        //Rule3: if the counterparty is one of the supported ones
+        checkValidCounterParts(trade, errors);
+        //Rule 4: validate currencies if they are valid ISO codes (ISO 4217)
+        validateCurrency(trade, errors);
+        //Rule 5: Legal Entity
+        validateLegalEntity(trade, errors);
+    }
+
+    private void validateRule1AndRule2(Trade trade, Errors errors) {
+        if (trade.getType() != TradeType.VanillaOption) {
+            LocalDate valueDate = LocalDate.from(dateTimeFormatter.parse(trade.getValueDate()));
+            LocalDate tradeDate = LocalDate.from(dateTimeFormatter.parse(trade.getTradeDate()));
+            //Rule 1: value date cannot be before trade date
+            checkRuleValueDateBeforeTradeDate(valueDate, tradeDate, errors);
+            //Rule 2: value date cannot fall on weekend or non-working day for currency
+            checkRuleValueDateShouldBeOnWorkingDay(valueDate, trade.getCcyPair(), errors);
+        }
+    }
+
+    private void validateInputParams(Trade trade, Errors errors) {
         checkForBasicValidation(trade,errors);
         checkForCurrencyValidation(trade,errors);
-        if(!errors.hasErrors()) {
-            if (trade.getType() != TradeType.VanillaOption) {
-                LocalDate valueDate = LocalDate.from(dateTimeFormatter.parse(trade.getValueDate()));
-                LocalDate tradeDate = LocalDate.from(dateTimeFormatter.parse(trade.getTradeDate()));
-                //Rule 1: value date cannot be before trade date
-                checkRuleValueDateBeforeTradeDate(valueDate, tradeDate, errors);
-                //Rule 2: value date cannot fall on weekend or non-working day for currency
-                checkRuleValueDateShouldBeOnWorkingDay(valueDate, trade.getCcyPair(), errors);
-            }
-            //Rule2: if the counterparty is one of the supported ones
-            checkValidCounterParts(trade, errors);
-            //Rule 4: validate currencies if they are valid ISO codes (ISO 4217)
-            validateCurrency(trade, errors);
-            //Rule 5: Legal Entity
-            validateLegalEntity(trade, errors);
-        }
     }
 
     private void checkForCurrencyValidation(Trade trade, Errors errors) {

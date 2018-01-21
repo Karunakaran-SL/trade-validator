@@ -14,15 +14,19 @@ public class OptionValidator extends AbstractValidator {
     @Override
     public void validate(Object obj, Errors errors) {
         Trade trade = (Trade) obj;
+        validateBasicParams(errors);
+        if(!errors.hasErrors()) {
+            validateExcersiceStartDate(trade,errors);
+            validateDeliveryDate(trade,errors);
+        }
+    }
+
+    private void validateBasicParams(Errors errors) {
         //Rule1: the style can be either American or European
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "style", "style can be either American or European");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "expiryDate", "For Option expiry date is mandatory");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "premiumDate", "For Option premium date is mandatory");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deliveryDate", "For Option delivery date is mandatory");
-        if(!errors.hasErrors()) {
-            validateExcersiceStartDate(trade,errors);
-            validateDeliveryDate(trade,errors);
-        }
     }
 
     private void validateDeliveryDate(Trade trade, Errors errors) {

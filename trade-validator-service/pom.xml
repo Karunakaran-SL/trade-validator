@@ -31,7 +31,8 @@
 		<java.version>1.8</java.version>
 		<sonar.exclusions>
 			/src/main/java/com/coding/trade/model/Trade.java,
-			/src/main/java/com/coding/trade/model/ValidationResult.java
+			/src/main/java/com/coding/trade/model/ValidationResult.java,
+			/src/main/java/com/coding/trade/service/impl/ShutdownServiceImpl.java
 		</sonar.exclusions>
 		<sonar.test.exclusions>
 			/src/test/java/com/coding/trade/**/*,
