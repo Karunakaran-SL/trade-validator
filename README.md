@@ -27,4 +27,8 @@ Additionally UI is implemented in very basic level, just a simple form.
    # Shutdown
       1. Enabled Spring actuator for gracefull application shutdown.
       2. Implemented /api/shutdown to handle gracefull application shutdown.
+  # Stats
+      1. Enabled Spring actuator for metrics, Where application metrics like liveRequest also included /metrics
+      2. Additionally details stats implemented under /stats
+      
 
