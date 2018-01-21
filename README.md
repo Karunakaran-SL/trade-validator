@@ -31,4 +31,5 @@ Additionally UI is implemented in very basic level, just a simple form.
       1. Enabled Spring actuator for metrics, Where application metrics like liveRequest also included /metrics
       2. Additionally details stats implemented under /stats
       
-
+# Assumptions
+   1. Application is designed using Single Responsibility Principle by SOLID. So additional details are created as separate service such as TradeInfoService, HolidayService etc.., which provides hardcoded values. In-real this need to enchanced with database or 3rd Party API.
