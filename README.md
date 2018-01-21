@@ -23,3 +23,8 @@ Additionally UI is implemented in very basic level, just a simple form.
 6. Since developed using TDD, any refactoring of code will take less time and no need of regression.
 7. REST Documentation: Swagger report will be avaiable on url http://localhost:8080/swagger-ui.html
 
+#Code detail
+   # Shutdown
+   1. Enabled Spring actuator for gracefull application shutdown.
+   2. Implemented /api/shutdown to handle gracefull application shutdown.
+
