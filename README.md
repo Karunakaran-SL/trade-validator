@@ -2,7 +2,8 @@
 
 Sample application using Spring Boot and Angular 5 to demo validation of Trade Validation.
 
-UI is very basic, just a simple form. 
+As main focus is on REST Service, and Swagger is integrated which provide better UI.
+Additionally UI is implemented in very basic level, just a simple form. 
 
 # Building Project
 1. Clone the project from git hub
