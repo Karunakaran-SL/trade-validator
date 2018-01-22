@@ -7,13 +7,20 @@ Additionally UI is implemented in very basic level, just a simple form.
 Sample application is deployed in Heroku cloud https://trade-validation-service.herokuapp.com
 
 # Building Project
-1. Clone the project from git hub
-2. cd /trade-validator/trade-validator-client
-3. npm install
-4. ng build -prod
-5. Move tp Spring Boot as cd ../trade-validator-service/
-6. Build Spring boot using "mvn clean install"
-7. Start the application "java -jar target/trade-validator-service-0.0.1-SNAPSHOT.jar"
+ # Project Setup
+   1. Clone the project from git hub
+   2. cd /trade-validator/trade-validator-client
+ # UI Build
+   1. npm install
+   2. ng build -prod
+ # Spring Boot Build  
+   1. Move tp Spring Boot as cd ../trade-validator-service/
+   2. Build Spring boot using "mvn clean install"
+   3. Start the application "java -jar target/trade-validator-service-0.0.1-SNAPSHOT.jar"
+ # Deploy Application in Cloud
+   1. Login to heroku create application name and generate key.
+   2. Open pom.xml and change the application name to registered once.
+   1. Build Using command "HEROKU_API_KEY=<Heroku_Key> mvn heroku:deploy"
 
 # Application Quality
 1. This application is developed based on TDD approach, we can find all test cases related to TDD using MockMVC
