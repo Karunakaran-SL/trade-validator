@@ -4,6 +4,7 @@ Sample application using Spring Boot and Angular 5 to demo validation of Trade V
 
 As main focus is on REST Service, and Swagger is integrated which provide better UI.
 Additionally UI is implemented in very basic level, just a simple form. 
+Sample application is deployed in Heroku cloud https://trade-validation-service.herokuapp.com
 
 # Building Project
 1. Clone the project from git hub
@@ -21,7 +22,7 @@ Additionally UI is implemented in very basic level, just a simple form.
 4. SonarCube report : https://sonarcloud.io/dashboard?id=com.coding.trade%3Atrade-validator-service 
 5. Code Coverage: Has 96% coverage.
 6. Since developed using TDD, any refactoring of code will take less time and no need of regression.
-7. REST Documentation: Swagger report will be avaiable on url http://localhost:8080/swagger-ui.html
+7. REST Documentation: Swagger report will be avaiable on url https://trade-validation-service.herokuapp.com/swagger-ui.html
 
 # Code detail
    # Shutdown
