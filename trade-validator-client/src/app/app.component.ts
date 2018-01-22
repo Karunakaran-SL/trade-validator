@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'Trade Validator';
   trade = new Trade();
   result = '';
+  bulk = '';
 
   constructor(private http: Http) {
 
@@ -24,6 +25,16 @@ export class AppComponent {
   validate() {
     const body = JSON.stringify(this.trade);
     this.http.post('/api/trade/valid', body, this.getRequestOptions()).map(res => res.text()).subscribe(res => {
+      this.result = res;
+    }, err => this.handleError(err));
+  }
+
+  bulkValidate() {
+    if (this.bulk === '') {
+      alert('Invalid Trade JSON');
+      return;
+    }
+    this.http.post('/api/trade/bulk-valid', this.bulk, this.getRequestOptions()).map(res => res.text()).subscribe(res => {
       this.result = res;
     }, err => this.handleError(err));
   }

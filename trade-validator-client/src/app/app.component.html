@@ -249,6 +249,22 @@
   </div>
 </form>
 
+<form #bulkForm="ngForm" >
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Post Bulk Trade as JSON for Validation</h4>
+  </div>
+  <div >
+    <textarea name="bulk" id="bulk"
+              class="form-control"
+              [(ngModel)]="bulk" >Enter Trade as JSON..</textarea>
+  </div>
+  <div class="form-control">
+    <button class="btn btn-default batch-button" id="submitBulk"
+            type="submit"
+            (click)="bulkValidate()">Validate Bulk</button>
+  </div>
+</form>
+
 <div style="text-align:center">
   <h3>
     Validation Result in JSON Format
